@@ -58,6 +58,7 @@ touch CalculatorTest.java
 package com.github.javadev.calculator;
 
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class CalculatorTest {
     @Test
@@ -108,4 +109,31 @@ public class Calculator {
     }
 }
 
+```
+
+Start maven:
+
+mvn clean package
+
+```
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.github.javadev.calculator.CalculatorTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.065 sec
+
+Results :
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ calculator ---
+[INFO] Building jar: /Users/vakol/Documents/project java/calculator/target/calculator-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2.017s
+[INFO] Finished at: Wed Dec 16 12:06:17 EET 2015
+[INFO] Final Memory: 15M/491M
+[INFO] ------------------------------------------------------------------------
 ```
