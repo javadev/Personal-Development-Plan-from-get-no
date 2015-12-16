@@ -5,7 +5,6 @@ Calculator application
  - Simple pom.xml
  - Add unit test
  - Add dependency
- - create UI
  - Add logic
  - Combine jar in one
  - Deploy jar to central maven repository
@@ -83,4 +82,30 @@ Add dependency to the pom.xml
             <scope>test</scope>
         </dependency>
     </dependencies>
+```
+
+Add logic:
+==========
+Source file Calculator.java in directory `src/main/java/com/github/javadev/calculator
+
+```java
+package com.github.javadev.calculator;
+
+public class Calculator {
+    private int value;
+    
+    public void init(int value) {
+        this.value = value;
+    }
+    
+    public int add(int localValue) {
+        value += localValue;
+        return value; 
+    }
+    
+    public int result() {
+        return value;
+    }
+}
+
 ```
