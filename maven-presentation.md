@@ -32,7 +32,6 @@ Simple pom.xml
 ```
 
 Start maven:
-===========
 
 mvn clean package
 
@@ -47,4 +46,41 @@ Result:
 [INFO] Finished at: Wed Dec 16 10:39:37 EET 2015
 [INFO] Final Memory: 17M/491M
 [INFO] ------------------------------------------------------------------------
+```
+
+Add unit test
+=============
+
+mkdir src/test/java/com/github/javadev/calculator
+cd src/test/java/com/github/javadev/calculator
+touch CalculatorTest.java
+
+```java
+package com.github.javadev.calculator;
+
+import org.junit.Test;
+
+public class CalculatorTest {
+    @Test
+    public void should_be_right_add_calculation() {
+        Calculator calc = new Calculator();
+        calc.init(2);
+        calc.add(3);
+        assertEquals(5, calc.result());
+    }
+}
+```
+
+Add dependency to the pom.xml
+=============================
+
+```xml
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 ```
