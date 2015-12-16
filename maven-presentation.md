@@ -29,4 +29,22 @@ Simple pom.xml
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>
-```    
+```
+
+Start maven:
+===========
+
+mvn clean package
+
+Result:
+```
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: /Users/vakol/Documents/project java/calculator/target/calculator-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 0.978s
+[INFO] Finished at: Wed Dec 16 10:39:37 EET 2015
+[INFO] Final Memory: 17M/491M
+[INFO] ------------------------------------------------------------------------
+```
