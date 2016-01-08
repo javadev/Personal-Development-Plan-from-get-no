@@ -90,6 +90,12 @@ Sort map by value
 
 Combine streams in one
 
+```java
+Stream.concat(s1, s2)
+
+Stream.of(s1, s2, s3, ...).flatMap(x -> x)
+```
+
 Endless stream
 
 Ranges
