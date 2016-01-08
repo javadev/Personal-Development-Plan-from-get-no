@@ -51,6 +51,25 @@ Map<String, List<Integer>> grouped = stream.collect(Collectors.grouping("" + ite
 ```
 
 Reverse elements
+```java
+Stream.of(1, 2, 3, 4, 5)
+    .peek(i -> System.out.println("before : " + i))
+    .sorted(Collections.reverseOrder())
+    .peek(i -> System.out.println("after : " + i))
+    .count();
+// Output:
+
+before : 1
+before : 2
+before : 3
+before : 4
+before : 5
+after : 5
+after : 4
+after : 3
+after : 2
+after : 1    
+```
 
 Flatten elements
 
