@@ -47,7 +47,22 @@ List<Integer> sorted = stream.sorted((i1, i2) -> Integer.compare(i1, i2)).collec
 Grouping elements
 
 ```java
-Map<String, List<Integer>> grouped = stream.collect(Collectors.grouping("" + item, item));
+
+ List<String> list = new ArrayList<>();
+
+        list.add("Hello");
+        list.add("Hello");
+        list.add("World");
+
+        Map<String, Long> counted = list.stream()
+            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        System.out.println(counted);
+    }
+}
+Result:
+
+{Hello=2, World=1}
 ```
 
 Reverse elements
