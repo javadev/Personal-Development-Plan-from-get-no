@@ -107,5 +107,46 @@ IntStream.rangeClosed(1, 3);
 // > 1, 2, 3
 ```
 
+anyMatch
 
+```java
+IntStream.range(1, 5).anyMatch(i -> i % 2 == 0);  
+// > true
+```
+
+allMatch
+
+```java
+IntStream.range(1, 5).allMatch(i -> i % 2 == 0);  
+// > false
+```
+
+noneMatch
+
+```java
+IntStream.range(1, 5).noneMatch(i -> i % 2 == 0);  
+// > false
+```
+
+Max/Min elements
+
+```java
+IntStream.range(1, 5).max().getAsInt();  
+// > 4
+IntStream.range(1, 5).min().getAsInt();  
+// > 1
+```
+
+Reduce elements
+
+```java
+IntStream.range(1, 5).reduce(1, (x, y) -> x * y)  
+// > 24
+```
+
+Parallel streams
+
+```java
+IntStream.range(1, 5).parallel().forEach(i -> heavyOperation());  
+```
 
