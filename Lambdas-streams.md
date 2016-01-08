@@ -88,6 +88,14 @@ Flatten elements
 
 Sort map by value
 
+```java
+countByType.entrySet()
+           .stream()
+           .sorted((e1, e2) -> e1.getValue().compareTo(e2.getValue())) // custom Comparator
+           .map(e -> e.getKey())
+           .collect(Collectors.toList());
+```
+
 Combine streams in one
 
 ```java
