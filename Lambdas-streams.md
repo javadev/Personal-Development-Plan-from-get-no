@@ -58,9 +58,7 @@ Grouping elements
             .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
         System.out.println(counted);
-    }
-}
-Result:
+// Result:
 
 {Hello=2, World=1}
 ```
