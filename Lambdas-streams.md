@@ -39,8 +39,28 @@ List<String> strings = stream.map(item -> "" + item).collect(Collectors.toList()
 ```
 
 Sort elements
+
 ```java
 List<Integer> sorted = stream.sorted((i1, i2) -> Integer.compare(i1, i2)).collect(Collectors.toList());
 ```
 
+Grouping elements
+
+```java
+Map<String, List<Integer>> grouped = stream.collect(Collectors.grouping("" + item, item));
 ```
+
+Reverse elements
+
+Flatten elements
+
+Sort map by value
+
+Combine streams in one
+
+Endless stream
+
+Ranges
+
+
+
