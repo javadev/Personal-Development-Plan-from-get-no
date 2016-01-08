@@ -100,5 +100,12 @@ Endless stream
 
 Ranges
 
+```java
+IntStream.range(1, 3);  
+// > 1, 2
+IntStream.rangeClosed(1, 3);  
+// > 1, 2, 3
+```
+
 
 
