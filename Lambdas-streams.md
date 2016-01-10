@@ -71,7 +71,15 @@ public class Main {
 Map elements
 
 ```java
-List<String> strings = stream.map(item -> "" + item).collect(Collectors.toList());
+import java.util.*;
+import java.util.stream.*;
+
+public class Main {
+    public static void main(String ... args) {
+        Stream<Integer> stream = Stream.of(5, 2, 3, 1, 4);
+        List<Integer> squares = stream.map(i -> i * i).collect(Collectors.toList());
+    }
+}
 ```
 
 Sort elements
