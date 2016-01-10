@@ -4,32 +4,68 @@ Java 8 Lambda Streams
 Create new stream
 
 ```java
-Stream<Integer> stream = Stream.of(5, 2, 3, 1, 4);
-Stream<Integer> stream2 = Arrays.asList(5, 2, 3, 1, 4).stream();
+import java.util.*;
+import java.util.stream.*;
+
+public class Main {
+    public static void main(String ... args) {
+        Stream<Integer> stream = Stream.of(5, 2, 3, 1, 4);
+        Stream<Integer> stream2 = Arrays.asList(5, 2, 3, 1, 4).stream();
+    }
+}
 ```
 
 Get first element
 
 ```java
-Integer first = stream.findFirst();
+import java.util.stream.*;
+
+public class Main {
+    public static void main(String ... args) {
+        Stream<Integer> stream = Stream.of(5, 2, 3, 1, 4);
+        Integer first = stream.findFirst().get();
+    }
+}
 ```
 
 Get last element
 
 ```java
-Integer last = stream.reduce().findFirst();
+import java.util.stream.*;
+
+public class Main {
+    public static void main(String ... args) {
+        Stream<Integer> stream = Stream.of(5, 2, 3, 1, 4);
+        Integer last = stream.reduce((a, b) -> b).orElse(null);
+    }
+}
 ```
 
 Get sum of elements
 
 ```java
-Integer sum = stream.sum();
+import java.util.stream.*;
+
+public class Main {
+    public static void main(String ... args) {
+        Stream<Integer> stream = Stream.of(5, 2, 3, 1, 4);
+        Integer sum = stream.mapToInt(Integer::intValue).sum();
+    }
+}
 ```
 
 Filter elements
 
 ```java
-List<Integer> filtered = stream.filter(item -> item % 2 == 0).collect(Collectors.toList());
+import java.util.*
+import java.util.stream.*;
+
+public class Main {
+    public static void main(String ... args) {
+        Stream<Integer> stream = Stream.of(5, 2, 3, 1, 4);
+        List<Integer> filtered = stream.filter(item -> item % 2 == 0).collect(Collectors.toList());
+    }
+}
 ```
 
 Map elements
