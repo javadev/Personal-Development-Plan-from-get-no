@@ -191,8 +191,6 @@ Java 8 Lambda Streams
  }
  ```
 
-Endless stream
-
 13. Range int stream
 
  ```java
@@ -206,6 +204,21 @@ Endless stream
   }
  } 
  // > [1, 2]
+ ```
+
+14. Range closed int stream
+
+ ```java
+ import java.util.*;
+ import java.util.stream.*;
+
+ public class Main {
+  public static void main(String ... args) {
+      List<Integer> rangeClosedList = IntStream.rangeClosed(1, 3).boxed().collect(Collectors.toList());
+      System.out.println(rangeClosedList);
+  }
+ } 
+ // > [1, 2, 3]
  ```
 
 anyMatch
