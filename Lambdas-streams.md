@@ -154,17 +154,26 @@ Java 8 Lambda Streams
  // [5, 4, 3, 2, 1]   
  ```
 
-Flatten elements
+11. Sort map by value
 
-Sort map by value
+ ```java
+ import java.util.*;
+ import java.util.stream.*;
 
-```java
-countByType.entrySet()
+ public class Main {
+    public static void main(String ... args) {
+        List<String> sortedByValue = new LinkedHashMap<String, Integer>() { {
+           put("one", 1);
+           put("tree", 3);
+           put("two", 2);
+           } }.entrySet()
            .stream()
-           .sorted((e1, e2) -> e1.getValue().compareTo(e2.getValue())) // custom Comparator
+           .sorted((e1, e2) -> e1.getValue().compareTo(e2.getValue()))
            .map(e -> e.getKey())
            .collect(Collectors.toList());
-```
+    }
+ }
+ ```
 
 Combine streams in one
 
