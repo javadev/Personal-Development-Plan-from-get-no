@@ -221,7 +221,7 @@ Java 8 Lambda Streams
  // > [1, 2, 3]
  ```
 
- 15. anyMatch
+15. anyMatch
 
  ```java
  import java.util.stream.*;
