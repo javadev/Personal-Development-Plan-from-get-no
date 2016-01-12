@@ -221,12 +221,19 @@ Java 8 Lambda Streams
  // > [1, 2, 3]
  ```
 
-anyMatch
+ 15. anyMatch
 
-```java
-IntStream.range(1, 5).anyMatch(i -> i % 2 == 0);  
-// > true
-```
+ ```java
+ import java.util.stream.*;
+
+ public class Main {
+  public static void main(String ... args) {
+      boolean anyMatch = IntStream.range(1, 5).anyMatch(i -> i % 2 == 0);
+      System.out.println(anyMatch);
+  }
+ }
+ // > true
+ ```
 
 allMatch
 
