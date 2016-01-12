@@ -1,7 +1,7 @@
 Java 8 Lambda Streams
 =====================
 
-Create new stream
+1. Create new stream
 
 ```java
 import java.util.stream.*;
@@ -14,7 +14,7 @@ public class Main {
 }
 ```
 
-Get first element
+2. Get first element
 
 ```java
 import java.util.stream.*;
@@ -27,7 +27,23 @@ public class Main {
 }
 ```
 
-Get last element
+3. Get first n elements
+
+```java
+import java.util.*;
+import java.util.stream.*;
+
+public class Main {
+    public static void main(String ... args) {
+        Stream<Integer> stream = Stream.of(5, 2, 3, 1, 4);
+        List<Integer> firstList = stream.limit(3).collect(Collectors.toList());
+        System.out.println(firstList);
+    }
+}
+// [5, 2, 3]
+```
+
+4. Get last element
 
 ```java
 import java.util.stream.*;
@@ -40,7 +56,7 @@ public class Main {
 }
 ```
 
-Get sum of elements
+5. Get sum of elements
 
 ```java
 import java.util.stream.*;
@@ -53,7 +69,7 @@ public class Main {
 }
 ```
 
-Filter elements
+6. Filter elements
 
 ```java
 import java.util.*
@@ -67,7 +83,7 @@ public class Main {
 }
 ```
 
-Map elements
+7. Map elements
 
 ```java
 import java.util.*;
@@ -81,7 +97,7 @@ public class Main {
 }
 ```
 
-Sort elements
+8. Sort elements
 
 ```java
 import java.util.*;
@@ -96,7 +112,7 @@ public class Main {
 }
 ```
 
-Grouping elements
+9. Grouping elements
 
 ```java
 
@@ -122,25 +138,19 @@ public class Main {
 {Hello=2, World=1}
 ```
 
-Reverse elements
+10. Reverse elements
 ```java
-Stream.of(1, 2, 3, 4, 5)
-    .peek(i -> System.out.println("before : " + i))
-    .sorted(Collections.reverseOrder())
-    .peek(i -> System.out.println("after : " + i))
-    .count();
-// Output:
+import java.util.*;
+import java.util.stream.*;
 
-before : 1
-before : 2
-before : 3
-before : 4
-before : 5
-after : 5
-after : 4
-after : 3
-after : 2
-after : 1    
+public class Main {
+    public static void main(String ... args) {
+        List<Integer> reversed = Stream.of(1, 2, 3, 4, 5)
+            .sorted(Collections.reverseOrder())
+            .collect(Collectors.toList());
+    }
+}
+// [5, 4, 3, 2, 1]   
 ```
 
 Flatten elements
