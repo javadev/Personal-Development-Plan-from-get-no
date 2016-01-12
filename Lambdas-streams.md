@@ -235,39 +235,39 @@ Java 8 Lambda Streams
  // > true
  ```
 
-allMatch
+16. allMatch
 
-```java
-IntStream.range(1, 5).allMatch(i -> i % 2 == 0);  
-// > false
-```
+ ```java
+ IntStream.range(1, 5).allMatch(i -> i % 2 == 0);  
+ // > false
+ ```
 
-noneMatch
+17. noneMatch
 
-```java
-IntStream.range(1, 5).noneMatch(i -> i % 2 == 0);  
-// > false
-```
+ ```java
+ IntStream.range(1, 5).noneMatch(i -> i % 2 == 0);  
+ // > false
+ ```
 
-Max/Min elements
+18. Max/Min elements
 
-```java
-IntStream.range(1, 5).max().getAsInt();  
-// > 4
-IntStream.range(1, 5).min().getAsInt();  
-// > 1
-```
+ ```java
+ IntStream.range(1, 5).max().getAsInt();  
+ // > 4
+ IntStream.range(1, 5).min().getAsInt();  
+ // > 1
+ ```
 
-Reduce elements
+19. Reduce elements
 
-```java
-IntStream.range(1, 5).reduce(1, (x, y) -> x * y)  
-// > 24
-```
+ ```java
+ IntStream.range(1, 5).reduce(1, (x, y) -> x * y)  
+ // > 24
+ ```
 
-Parallel streams
+20. Parallel streams
 
-```java
-IntStream.range(1, 5).parallel().forEach(i -> heavyOperation());  
-```
+ ```java
+ IntStream.range(1, 5).parallel().forEach(i -> heavyOperation());  
+ ```
 
