@@ -193,14 +193,20 @@ Java 8 Lambda Streams
 
 Endless stream
 
-Ranges
+13. Range int stream
 
-```java
-IntStream.range(1, 3);  
-// > 1, 2
-IntStream.rangeClosed(1, 3);  
-// > 1, 2, 3
-```
+ ```java
+ import java.util.*;
+ import java.util.stream.*;
+
+ public class Main {
+  public static void main(String ... args) {
+      List<Integer> rangeList = IntStream.range(1, 3).boxed().collect(Collectors.toList());
+      System.out.println(rangeList);
+  }
+ } 
+ // > [1, 2]
+ ```
 
 anyMatch
 
