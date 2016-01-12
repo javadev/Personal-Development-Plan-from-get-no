@@ -4,7 +4,6 @@ Java 8 Lambda Streams
 Create new stream
 
 ```java
-import java.util.*;
 import java.util.stream.*;
 
 public class Main {
@@ -85,15 +84,29 @@ public class Main {
 Sort elements
 
 ```java
-List<Integer> sorted = stream.sorted((i1, i2) -> Integer.compare(i1, i2)).collect(Collectors.toList());
+import java.util.*;
+import java.util.stream.*;
+
+public class Main {
+    public static void main(String ... args) {
+        Stream<Integer> stream = Stream.of(5, 2, 3, 1, 4);
+        List<Integer> sorted = stream.sorted((i1, i2) -> Integer.compare(i1,
+                    i2)).collect(Collectors.toList());
+    }
+}
 ```
 
 Grouping elements
 
 ```java
 
- List<String> list = new ArrayList<>();
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
+public class Main {
+    public static void main(String ... args) {
+        List<String> list = new ArrayList<>();
         list.add("Hello");
         list.add("Hello");
         list.add("World");
@@ -102,6 +115,8 @@ Grouping elements
             .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
         System.out.println(counted);
+    }
+}
 // Result:
 
 {Hello=2, World=1}
