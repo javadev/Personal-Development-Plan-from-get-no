@@ -175,13 +175,21 @@ Java 8 Lambda Streams
  }
  ```
 
-Combine streams in one
+12. Combine streams in one
 
-```java
-Stream.concat(s1, s2)
+ ```java
+ import java.util.*;
+ import java.util.stream.*;
 
-Stream.of(s1, s2, s3, ...).flatMap(x -> x)
-```
+ public class Main {
+  public static void main(String ... args) {
+      Stream<Integer> stream1 = Stream.of(5, 2, 3, 1, 4);
+      Stream<Integer> stream2 = Stream.of(40, 20, 30, 10, 40);
+      List<Integer> concatedList = Stream.concat(stream1, stream2).collect(Collectors.toList());
+      System.out.println(concatedList);
+  }
+ }
+ ```
 
 Endless stream
 
