@@ -145,13 +145,19 @@ Java 8 Lambda Streams
  import java.util.stream.*;
 
  public class Main {
-    public static void main(String ... args) {
-        List<Integer> reversed = Stream.of(1, 2, 3, 4, 5)
-            .sorted(Collections.reverseOrder())
-            .collect(Collectors.toList());
-    }
+  public static void main(String ... args) {
+      Stream<Integer> stream = Stream.of(5, 2, 3, 1, 4);
+      Iterator<Integer> reversedStream = stream.collect(Collectors.toCollection(LinkedList::new))
+            .descendingIterator();
+
+      List<Integer> listReversedOrder = StreamSupport.stream(
+            Spliterators.spliteratorUnknownSize(reversedStream,
+                    Spliterator.ORDERED), false).collect(
+            Collectors.<Integer> toList());
+      System.out.println(listReversedOrder);
+  }
  }
- // [5, 4, 3, 2, 1]   
+ // [4, 1, 3, 2, 5]  
  ```
 
 11. Sort map by value
@@ -238,7 +244,14 @@ Java 8 Lambda Streams
 16. allMatch
 
  ```java
- IntStream.range(1, 5).allMatch(i -> i % 2 == 0);  
+ import java.util.stream.*;
+
+ public class Main {
+  public static void main(String ... args) {
+      boolean allMatch = IntStream.range(1, 5).allMatch(i -> i % 2 == 0);.
+      System.out.println(allMatch);
+  }
+ }
  // > false
  ```
 
