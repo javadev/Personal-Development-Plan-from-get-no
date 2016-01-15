@@ -258,17 +258,32 @@ Java 8 Lambda Streams
 17. noneMatch
 
  ```java
- IntStream.range(1, 5).noneMatch(i -> i % 2 == 0);  
+ import java.util.stream.*;
+
+ public class Main {
+  public static void main(String ... args) {
+      boolean noneMatch = IntStream.range(1, 5).noneMatch(i -> i % 2 == 0);
+      System.out.println(noneMatch);
+  }
+ }
  // > false
  ```
 
 18. Max/Min elements
 
  ```java
- IntStream.range(1, 5).max().getAsInt();  
- // > 4
- IntStream.range(1, 5).min().getAsInt();  
- // > 1
+ import java.util.stream.*;
+
+ public class Main {
+  public static void main(String ... args) {
+      Integer max = IntStream.range(1, 5).max().getAsInt();
+      System.out.println(max);
+      // > 4
+      Integer min = IntStream.range(1, 5).min().getAsInt();
+      System.out.println(min);
+      // > 1
+  }
+ }
  ```
 
 19. Reduce elements
