@@ -296,6 +296,10 @@ Java 8 Lambda Streams
 20. Parallel streams
 
  ```java
- IntStream.range(1, 5).parallel().forEach(i -> heavyOperation());  
+ IntStream.range(1, 5).parallel().forEach(i -> heavyOperation());
  ```
+
+Links:
+
+[![Шпаргалка Java программиста 4. Java Stream API]](https://habrahabr.ru/company/luxoft/blog/270383/)
 
