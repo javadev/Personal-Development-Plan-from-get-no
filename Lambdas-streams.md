@@ -301,5 +301,5 @@ Java 8 Lambda Streams
 
 Links:
 
-[![Шпаргалка Java программиста 4. Java Stream API]](https://habrahabr.ru/company/luxoft/blog/270383/)
+[Шпаргалка Java программиста 4. Java Stream API](https://habrahabr.ru/company/luxoft/blog/270383/)
 
