@@ -364,6 +364,7 @@ pom.xml file:
             <scope>test</scope>
         </dependency>
     </dependencies>
+  </project>
 ```
 
 addressbook/entity/Contact.java
