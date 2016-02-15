@@ -8,6 +8,7 @@ Calculator application
  - Add logic
  - Combine jar in one
  - Deploy jar to central maven repository
+ - Example web application with JAX-RS and enpoint
  
 Simple pom.xml
 ==============
@@ -282,3 +283,191 @@ Add `release` profile to the pom.xml file:
     </profile>
   </profiles>
 ```
+
+Example web application with JAX-RS and enpoint
+===============================================
+
+pom.xml file:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github</groupId>
+  <artifactId>test-task-address-book</artifactId>
+  <packaging>war</packaging>
+  <version>1.0</version>
+  <name>Test task, address book application</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jetty.version>8.1.8.v20121106</jetty.version>
+  </properties>
+  
+  <build>
+    <plugins>
+          <plugin>
+          <groupId>org.mortbay.jetty</groupId>
+          <artifactId>jetty-maven-plugin</artifactId>
+          <version>${jetty.version}</version>
+          <configuration>
+              <webAppConfig>
+                  <contextPath>/</contextPath>
+              </webAppConfig>
+              <connectors>
+                  <connector implementation="org.eclipse.jetty.server.bio.SocketConnector">
+                      <port>8080</port>
+                      <maxIdleTime>3600000</maxIdleTime>
+                  </connector>
+              </connectors>
+          </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>2.2.1.GA</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson-provider</artifactId>
+            <version>2.2.1.GA</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.6.Final</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.1.2.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+```
+
+addressbook/entity/Contact.java
+
+```
+@Entity
+@Table(name = "contact")
+public class Contact implements Serializable {
+
+    private static final long serialVersionUID =-2032908015L;
+    private Long id;
+    private String name;
+    private Boolean done;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "BIGINT", nullable = false)
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Size(max = 100)
+    @Column(name = "name", columnDefinition = "VARCHAR(100)", nullable = false, length = 100)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Column(name = "done", columnDefinition = "BIT(1)")
+    public Boolean getDone() {
+        return done;
+    }
+
+    public void setDone(Boolean done) {
+        this.done = done;
+    }
+
+    @Override
+    public String toString() {
+        return "Contact@" + hashCode();
+    }
+}
+```
+
+addressbook/rest/ontactRestService.java
+
+```java
+@Path("/contacts")
+public class ContactRestService {
+
+    protected static EntityManager em;
+
+    static {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("contactsDatabase");
+        em = emf.createEntityManager();
+    }
+
+    @GET
+    @Produces("application/json")
+    public List<Contact> getContacts() {
+        Query query = em.createQuery("select c from Contact c");
+        return query.getResultList();
+    }
+
+    @POST
+    @Consumes("application/json")
+    public Response createContact(Contact contact) {
+        em.getTransaction().begin();
+        em.persist(contact);
+        em.getTransaction().commit();
+        String result = "Contact was created : " + contact;
+        return Response.status(201).entity(result).build();
+    }
+    
+    @PUT
+    @Path("/{id}")
+    @Consumes("application/json")
+    public Response updateContact(@PathParam("id") Long id, Contact contact) {
+        em.getTransaction().begin();
+        em.merge(contact);
+        em.getTransaction().commit();
+        String result = "Contact was updated : " + contact;
+        return Response.status(204).entity(result).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces("application/json")
+    public Response deleteContact(@PathParam("id") Long id) {
+        em.getTransaction().begin();
+        Query query = em.createQuery("delete from Contact c where c.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
+        em.getTransaction().commit();
+        String result = "Contact was deleted : " + id;
+        return Response.status(204).entity(result).build();
+    }
+}
+```
+
