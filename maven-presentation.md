@@ -369,7 +369,7 @@ pom.xml file:
 
 addressbook/entity/Contact.java
 
-```
+```java
 @Entity
 @Table(name = "contact")
 public class Contact implements Serializable {
