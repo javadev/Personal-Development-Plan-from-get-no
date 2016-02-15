@@ -185,6 +185,51 @@ Add maven plugin to the build section:
 Deploy jar to central maven repository
 ======================================
 
+Add `name`, `description` and `url` properties:
+
+```xml
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>My jar module</description>
+  <url>https://github.com/user/application</url>
+```
+
+Add `developers` section:
+
+```xml
+  <developers>
+    <developer>
+      <name>Firstname Surname</name>
+    </developer>
+  </developers>
+```
+
+Add `licenses` and `scm` sections:
+
+```xml
+  <licenses>
+    <license>
+      <name>The MIT License</name>
+      <url>http://opensource.org/licenses/MIT</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:https://github.com/username/application.git</connection>
+    <developerConnection>scm:git:https://github.com/username/application.git</developerConnection>
+    <url>https://github.com/username/application</url>
+    <tag>HEAD</tag>
+  </scm>
+```
+
+Add `properties` section:
+
+```xml
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+```
+
 Add `release` profile to the pom.xml file:
 
 ```xml
