@@ -1,5 +1,13 @@
-SOAP
-====
+Agenda
+
+Calculator soap service
+
+ - SOAP description
+ - SOAP server
+ - SOAP client
+
+SOAP description
+================
 
 SOAP, originally an acronym for Simple Object Access Protocol, is a protocol specification for exchanging structured
 information in the implementation of web services in computer networks. It uses XML Information Set for its message format,
@@ -66,3 +74,40 @@ SOAP Versions
 |Spec Location|http://www.w3.org/TR/soap12-part0/ (Primer)|
 |http://www.w3.org/TR/soap12-part1/||
 |http://www.w3.org/TR/soap12-part2/||
+
+SOAP server, Spring Web Service server sample application
+=========================================================
+
+depenency module in pom.xml:
+
+```
+    <dependency>
+      <groupId>org.springframework.ws</groupId>
+      <artifactId>spring-ws-core</artifactId>
+      <version>2.1.0.RELEASE</version>
+    </dependency>
+```
+
+Jetty plugin:
+=============
+
+```
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty.version}</version>
+                <configuration>
+                    <webAppConfig>
+                        <contextPath>/LiveRestaurant</contextPath>
+                    </webAppConfig>
+                    <connectors>
+                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                            <port>8080</port>
+                            <maxIdleTime>3600000</maxIdleTime>
+                        </connector>
+                    </connectors>
+                </configuration>
+            </plugin>
+```
+
+
