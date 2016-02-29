@@ -180,3 +180,162 @@ public class OrderServicePayloadRootAnnotationEndPoint {
 }
 ```
 
+WSDL example
+============
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.liverestaurant.com/OrderService/schema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.liverestaurant.com/OrderService/schema" targetNamespace="http://www.liverestaurant.com/OrderService/schema">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:QOrder="http://www.liverestaurant.com/OrderService/schema" elementFormDefault="qualified" targetNamespace="http://www.liverestaurant.com/OrderService/schema">
+
+    <element name="placeOrderRequest">
+        <complexType>
+            <sequence>
+                <element name="order" type="QOrder:Order"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="placeOrderResponse">
+        <complexType>
+            <sequence>
+                <element name="refNumber" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="cancelOrderRequest">
+        <complexType>
+            <sequence>
+                <element name="refNumber" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="cancelOrderResponse">
+        <complexType>
+            <sequence>
+                <element name="cancelled" type="boolean"/>
+            </sequence>
+        </complexType>
+    </element>
+
+  <complexType name="Order">
+      <sequence>
+          <element name="refNumber" type="string"/>
+          <element name="customer" type="QOrder:Customer"/>
+          <element name="dateSubmitted" type="dateTime"/>
+          <element name="orderDate" type="dateTime"/>
+          <element maxOccurs="unbounded" minOccurs="1" name="items" type="QOrder:FoodItem">
+          </element>
+      </sequence>
+  </complexType>
+
+  <complexType name="Customer">
+      <sequence>
+          <element name="addressPrimary" type="QOrder:Address"/>
+          <element name="addressSecondary" type="QOrder:Address"/>
+          <element name="name" type="QOrder:Name"/>
+      </sequence>
+  </complexType>
+  
+  <complexType name="Name">
+      <sequence>
+          <element name="fName" type="string"/>
+          <element name="mName" type="string"/>
+          <element name="lName" type="string"/>
+      </sequence>
+  </complexType>
+
+  <complexType name="Address">
+      <sequence>
+          <element name="doorNo" type="string"/>
+          <element name="building" type="string"/>
+          <element name="street" type="string"/>
+          <element name="city" type="string"/>
+          <element name="country" type="string"/>
+          <element name="phoneMobile" type="string"/>
+          <element name="phoneLandLine" type="string"/>
+          <element name="email" type="string"/>
+      </sequence>
+  </complexType>
+
+    <simpleType name="FoodItemType">
+        <restriction base="string">
+            <enumeration value="Snacks"/>
+            <enumeration value="Beverages"/>
+            <enumeration value="Starters"/>
+            <enumeration value="Meals"/>
+            <enumeration value="Coffee"/>
+            <enumeration value="Juices"/>
+            <enumeration value="Desserts"/>
+        </restriction>
+    </simpleType>
+
+    <complexType name="FoodItem">
+        <sequence>
+            <element name="type" type="QOrder:FoodItemType"/>
+            <element name="name" type="string"/>
+            <element name="quantity" type="double"/>
+        </sequence>
+    </complexType>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="placeOrderResponse">
+    <wsdl:part element="tns:placeOrderResponse" name="placeOrderResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelOrderRequest">
+    <wsdl:part element="tns:cancelOrderRequest" name="cancelOrderRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelOrderResponse">
+    <wsdl:part element="tns:cancelOrderResponse" name="cancelOrderResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="placeOrderRequest">
+    <wsdl:part element="tns:placeOrderRequest" name="placeOrderRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="OrderService">
+    <wsdl:operation name="placeOrder">
+      <wsdl:input message="tns:placeOrderRequest" name="placeOrderRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:placeOrderResponse" name="placeOrderResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelOrder">
+      <wsdl:input message="tns:cancelOrderRequest" name="cancelOrderRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:cancelOrderResponse" name="cancelOrderResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OrderServiceSoap11" type="tns:OrderService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="placeOrder">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="placeOrderRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="placeOrderResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelOrder">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="cancelOrderRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cancelOrderResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OrderServiceService">
+    <wsdl:port binding="tns:OrderServiceSoap11" name="OrderServiceSoap11">
+      <soap:address location="http://www.liverestaurant.com/OrderService/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
+```
