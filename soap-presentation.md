@@ -54,4 +54,15 @@ Disadvantages
 * When relying on HTTP as a transport protocol and not using WS-Addressing or an ESB, the roles of the interacting parties are fixed. Only one party (the client) can use the services of the other.
 * The verbosity of the protocol led to the domination in the field by services using the HTTP protocol more directly.
 
+SOAP Versions
+=============
 
+|SOAP 1.1||
+|--------|---|
+|Namespace Name|http://schemas.xmlsoap.org/soap/envelope/|
+|Spec Location|http://www.w3.org/TR/SOAP/|
+|SOAP 1.2||
+|Namespace Name|http://www.w3.org/2002/12/soap-envelope|
+|Spec Location|http://www.w3.org/TR/soap12-part0/ (Primer)|
+|http://www.w3.org/TR/soap12-part1/||
+|http://www.w3.org/TR/soap12-part2/||
