@@ -180,6 +180,54 @@ public class OrderServicePayloadRootAnnotationEndPoint {
 }
 ```
 
+Spring config file
+=================
+
+```xml
+<?xml  version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://www.springframework.org/schema/p"                     xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans             http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <!--     PayloadRootAnnotationMethodEndpointMapping is the Mapping that             detects and handles the @PayloadRoot Annotation -->
+    <bean class="org.springframework.ws.server.endpoint.mapping.PayloadRootAnnotationMethodEndpointMapping">
+        <property name="interceptors">
+            <list>
+                 <bean class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="orderServiceEndpoint"
+class="com.live.order.service.endpoint.OrderServicePayloadRootAnnotationEndPoint">
+        <constructor-arg>
+            <bean class="com.live.order.service.OrderServiceImpl"/>
+        </constructor-arg>
+    </bean>
+    <bean id="OrderService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema" ref="orderServiceSchema"/>
+        <property name="portTypeName" value="OrderService"/>
+        <property name="locationUri" value="http://www.liverestaurant.com/OrderService/" />
+        <property name="targetNamespace" value="http://www.liverestaurant.com/OrderService/schema"/>
+    </bean>
+
+    <bean id="orderServiceSchema" class="org.springframework.xml.xsd.SimpleXsdSchema">
+        <property name="xsd" value="/WEB-INF/classes/OrderService.xsd"/>
+    </bean>
+
+    <bean class="org.springframework.ws.server.endpoint.adapter.GenericMarshallingMethodEndpointAdapter">
+        <constructor-arg ref="marshaller" />
+    </bean>
+
+    <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="contextPath" value="com.liverestaurant.orderservice.schema"/>
+    </bean>
+
+</beans>
+```
+
 WSDL example
 ============
 
