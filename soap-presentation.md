@@ -387,3 +387,100 @@ WSDL example
   </wsdl:service>
 </wsdl:definitions>
 ```
+
+SOAP client
+===========
+
+pom.xml dependency:
+-------------------
+
+```xml
+    <dependency>
+      <groupId>org.springframework.ws</groupId>
+      <artifactId>spring-ws-core</artifactId>
+      <version>2.1.0.RELEASE</version>
+    </dependency>
+```
+
+Spring configuration:
+=====================
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+    <bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory">
+        <property name="soapVersion">
+            <util:constant static-field="org.springframework.ws.soap.SoapVersion.SOAP_11" />
+        </property>
+    </bean>
+
+    <bean id="orderServiceMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="contextPath" value="com.liverestaurant.orderservice.schema" />
+    </bean>
+
+    <bean id="orderServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+        <constructor-arg ref="messageFactory" />
+        <property name="marshaller" ref="orderServiceMarshaller"></property>
+        <property name="unmarshaller" ref="orderServiceMarshaller"></property>
+        <property name="messageSender">
+            <bean
+                class="org.springframework.ws.transport.http.CommonsHttpMessageSender">
+            </bean>
+        </property>
+        <property name="defaultUri" value="http://localhost:8080/LiveRestaurant/spring-ws/OrderService" />
+    </bean>
+
+    <bean id="OrderServiceClient" class="com.live.order.service.client.OrderServiceClient">
+        <constructor-arg ref="orderServiceTemplate"></constructor-arg>
+    </bean>
+</beans>
+```
+
+Java client source code:
+========================
+
+```java
+public class OrderServiceClient implements OrderService {
+
+    private static final Logger logger = Logger.getLogger(OrderServiceClient.class);
+    private static final ObjectFactory WS_CLIENT_FACTORY = new ObjectFactory();
+
+    private  WebServiceTemplate webServiceTemplate;
+
+    public OrderServiceClient(WebServiceTemplate webServiceTemplate) {
+        this.webServiceTemplate = webServiceTemplate;
+    }
+
+    @Override
+    public boolean cancelOrder(String orderRef) {
+        logger.debug("Preparing CancelOrderRequest.....");
+        CancelOrderRequest request =   WS_CLIENT_FACTORY.createCancelOrderRequest();
+        request.setRefNumber(orderRef);
+
+        logger.debug("Invoking Web service Operation[CancelOrder]....");
+        CancelOrderResponse response = (CancelOrderResponse) webServiceTemplate.marshalSendAndReceive(request);
+
+        logger.debug("Has the order cancelled: " + response.isCancelled());
+
+        return response.isCancelled();
+    }
+
+    @Override
+    public String placeOrder(Order order) {
+        logger.debug("Preparing PlaceOrderRequest.....");
+                PlaceOrderRequest request = WS_CLIENT_FACTORY.createPlaceOrderRequest();
+                request.setOrder(order);
+
+        logger.debug("Invoking Web service Operation[PlaceOrder]....");
+                PlaceOrderResponse response = (PlaceOrderResponse) webServiceTemplate.marshalSendAndReceive(request);
+        logger.debug("Order reference:" + response.getRefNumber());
+        return response.getRefNumber();
+    }
+}
+```
